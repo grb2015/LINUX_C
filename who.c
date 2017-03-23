@@ -1,3 +1,11 @@
+/***************************************************************
+ *	name: 	who.c
+ *	auther:	renbin.guo
+ *	brief:	self defined linux cmd 'who'
+ *	history:	
+ *		2017-03-23	renbin.guo added
+ *			
+ ***************************************************************/
 #include<stdio.h>
 #include<utmp.h>
 #include<fcntl.h>
