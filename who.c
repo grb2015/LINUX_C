@@ -20,12 +20,12 @@ int main()
 		struct utmp current_record;
 		int utmpfd;
 		int reclen = sizeof(current_record);
-		if((utmpfd = open(UTMP_FILE,O_RDONLY)) == -1)
+		if((utmpfd = open(UTMP_FILE,O_RDONLY)) == -1)	
 		{
 			perror(UTMP_FILE);
 			return 0;
 		}
-		/*一直读，每次读取一个utmp的结构，长度为reclen，然后显示,知道把所有结构数组都读完*/
+		/*一直读，每次读取一个utmp的结构，长度为reclen，然后显示,直到把所有结构数组都读完*/
 		while(read(utmpfd,&current_record,reclen) == reclen)
 			show_info(&current_record);
 		close(utmpfd);
