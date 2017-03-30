@@ -3,9 +3,10 @@
  *	auther:	renbin.guo
  *	brief:	self defined linux cmd 'who'
  *	note :
- *		verison 1 : not buffered
+ *		verison 2 : who with bufferd reads 
+ *			
  *	history:	
- *		2017-03-23	renbin.guo added
+ *		2017-03-29	renbin.guo added
  *	
  *			
  ***************************************************************/
@@ -15,24 +16,50 @@
 #include<unistd.h>
 #include<time.h>
 
+//renbin.guo added 
+#include"utmplib.h"
+
 void show_info(struct utmp*);
 void show_time(long);		
 
 int main()
 {
-		struct utmp current_record;
-		int utmpfd;
+	/* struct utmp current_record; int utmpfd;
 		int reclen = sizeof(current_record);
 		if((utmpfd = open(UTMP_FILE,O_RDONLY)) == -1)	
 		{
 			perror(UTMP_FILE);
 			return 0;
 		}
-		/*一直读，每次读取一个utmp的结构，长度为reclen，然后显示,直到把所有结构数组都读完*/
 		while(read(utmpfd,&current_record,reclen) == reclen)
 			show_info(&current_record);
 		close(utmpfd);
 		return 0;
+	*/
+	struct utmp *utbufp;
+	//struct utmp *utmp_next();	//这里为什么要声明这个函数.utmp_open()都没有声明
+	
+	/*
+	*
+ 	*	打开文件，这里并没有fd返回,fd回在utmp_next里面使用
+ 	*/
+	if(utmp_open(UTMP_FILE) == -1)
+	{
+		perror(UTMP_FILE);
+		exit(1);
+	}
+
+	/*
+ 	*
+	*   一次Load 16 个记录，但每次只返回一个记录来显示
+	*    
+  	*/
+
+	while( (utbufp= utmp_next()) != (struct umpt*)NULL)
+		show_info(utbufp);
+	utmp_close();
+	return 0;
+
 }
 void show_info(struct utmp*utbufp)
 {
