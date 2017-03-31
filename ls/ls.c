@@ -17,6 +17,9 @@
 #include<dirent.h>
 
 #include<sys/stat.h>
+char* gid_to_name(gid_t gid);
+void mode_to_letters(int mode,char str[]);
+char * uid_to_name(uid_t uid);
 /*打印当前目录下的所有文件*/
 void do_ls(char []);
 
@@ -147,10 +150,11 @@ void mode_to_letters(int mode,char str[])
 }
 
 
-#include < pwd.h >
+//#include < pwd.h >
+#include"/usr/include/pwd.h"
 char * uid_to_name(uid_t uid)
 {
-	struct	*pw_ptr;
+	struct	passwd*pw_ptr;
 	static  char numstr[10];
 	pw_ptr = getpwuid(uid);
 	/*	if no string name ,output uid (如果uid没有对应的用户名，则直接输出数字类型uid )	*/
@@ -160,17 +164,17 @@ char * uid_to_name(uid_t uid)
 		return numstr;
 	}
 	else
-		return pw_str->pw_name;
+		return pw_ptr->pw_name;
 }
 
 
 #include <grp.h>
 
-char* git_to_name(gid_t gid)
+char* gid_to_name(gid_t gid)
 {
-	struct *grp_ptr;
+	struct group*grp_ptr;
 	static char numstr[10];		/// 这里两处定义numstr不重复吗
-	grp_ptr = getgrpid(gid);
+	grp_ptr = getgrgid(gid);
 	if(grp_ptr == NULL)
 	{
 		sprintf(numstr,"%d",gid);
@@ -179,4 +183,3 @@ char* git_to_name(gid_t gid)
 	else
 		return grp_ptr->gr_name;
 }
-	}
