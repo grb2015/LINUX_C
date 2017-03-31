@@ -2,11 +2,14 @@
  * 
  *   name:	ls.c
  *   author:	renbin.guo
- *   brief:	the first verion of ls
+ *   brief:	the 2ed verion of ls
  *   note:
  *   		if no args,use . 
+ *   		bug:	
+ *   			can't print give dirent.like  ./ls   /mnt  
  *   history:	
  *   		2017-03-30 	renbin.guo created
+ *   		2017-03-31	renbin.guo modify creat verion 2	implement ls -l	
  *
  ***************************************************************/
 #include<stdio.h>
@@ -31,6 +34,7 @@ int main(int ac,char *av[])
 /*********************************************************************
  *	 name:		do_ls
  *	 auther:	renbin.guo
+ *	 parans:	[in] dirname:    direct name 
  *	 breif:		printf all files in dirname
  *	 note:	
  *	 history:
