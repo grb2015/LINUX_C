@@ -110,15 +110,15 @@ void show_file_info(char *filename,struct stat *info_p)
 	mode_to_letters(info_p->st_mode,modestr);
 	printf("%s",modestr);
 
-	printf("%4d ",(int)info_p->st_nlink);
+	printf("%4d ",(int)info_p->st_nlink);		//format: 右对其，至少显示4位数字,不足的补空格
 
 	/*同样，uid和gid也需要转换*/
-	printf("%s  ", uid_to_name(info_p->st_uid));
-	printf("%s  ", gid_to_name(info_p->st_gid));
+	printf("%-8s", uid_to_name(info_p->st_uid));	// 左对齐，至少显示8个字符，不足的补空格	
+	printf("%-8s  ", gid_to_name(info_p->st_gid));	// 左对齐，至少显示8个字符，不足的补空格
 	
-	printf("%ld ",info_p->st_size);
-	printf( "%.12s ", 4+ctime(&info_p->st_mtime));
-	printf("%s\n",filename);
+	printf("%8ld ",info_p->st_size);		// 右对齐，至少显示8位数字，不足的补空格
+	printf( "%.12s ", 4+ctime(&info_p->st_mtime));  // 右对其，只显示12个字符
+	printf("%9s\n",filename);			// renbin.guo modify 2017-04-01 左对齐，至少显示6个字符，不足补空格
 }
 
 
