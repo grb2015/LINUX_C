@@ -106,11 +106,11 @@ void show_file_info(char *filename,struct stat *info_p)
 	printf("%4d ",(int)info_p->st_nlink);
 
 	/*同样，uid和gid也需要转换*/
-	printf("%s", uid_to_name(info_p->st_uid));
-	printf("%s", gid_to_name(info_p->st_gid));
+	printf("%s  ", uid_to_name(info_p->st_uid));
+	printf("%s  ", gid_to_name(info_p->st_gid));
 	
-	printf("%ld",info_p->st_size);
-	printf("%s", info_p->st_mtime);
+	printf("%ld ",info_p->st_size);
+	printf("%d  ", info_p->st_mtime);
 	printf("%s\n",filename);
 }
 
