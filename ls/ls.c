@@ -117,7 +117,6 @@ void show_file_info(char *filename,struct stat *info_p)
 	printf("%s  ", gid_to_name(info_p->st_gid));
 	
 	printf("%ld ",info_p->st_size);
-	printf("%ld  ", info_p->st_mtime);
 	printf( "%.12s ", 4+ctime(&info_p->st_mtime));
 	printf("%s\n",filename);
 }
