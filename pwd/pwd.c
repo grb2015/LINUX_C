@@ -68,8 +68,12 @@ void inum_to_name(ino_t inode_to_find , char *namebuf, int buflen)
 	while ( ( direntp = readdir( dir_ptr ) ) != NULL )
 		if ( direntp->d_ino == inode_to_find )
 		{
+			/*
+ 			 *	strncpy 如果d_name 小于 buflen,则以NULL 填充
+ 			 *		如果大于，则可避免缓冲区溢出
+ 			 */
 			strncpy( namebuf, direntp->d_name, buflen);
-			namebuf[buflen-1] = '\0';   /* just in case */
+			namebuf[buflen-1] = '\0';   /* just in case 	这里，最后一位不管有没有值，都会覆盖*/
 			closedir( dir_ptr );
 			return;
 		}
