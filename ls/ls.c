@@ -15,11 +15,16 @@
 #include<stdio.h>
 #include<sys/types.h>
 #include<dirent.h>
-
 #include<sys/stat.h>
+
+// renbin.guo added for "ctime"	,fixed the ctime run bug at  #1
+#include<time.h>
 char* gid_to_name(gid_t gid);
 void mode_to_letters(int mode,char str[]);
 char * uid_to_name(uid_t uid);
+void mode_to_letters(int mode,char str[]);
+void show_file_info(char *filename,struct stat *info_p);
+void dostat(char *filename);
 /*打印当前目录下的所有文件*/
 void do_ls(char []);
 
@@ -98,6 +103,8 @@ void dostat(char *filename)
 
 void show_file_info(char *filename,struct stat *info_p)
 {
+	//char 	*ctime();	//if comment this ,you need to add time.h (书上有这样的声明，如果不声明的话需要加上头文件 time.h 不然运行会有错误)
+				// 但是为什么是char *ctime() ?参数表不正确啊?
 	char	 modestr[11];
 	/*将数字表示的mode信息转成字符打印*/
 	mode_to_letters(info_p->st_mode,modestr);
@@ -110,7 +117,8 @@ void show_file_info(char *filename,struct stat *info_p)
 	printf("%s  ", gid_to_name(info_p->st_gid));
 	
 	printf("%ld ",info_p->st_size);
-	printf("%d  ", info_p->st_mtime);
+	printf("%ld  ", info_p->st_mtime);
+	printf( "%.12s ", 4+ctime(&info_p->st_mtime));
 	printf("%s\n",filename);
 }
 
