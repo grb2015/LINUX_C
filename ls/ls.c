@@ -10,6 +10,7 @@
  *   history:	
  *   		2017-03-30 	renbin.guo created
  *   		2017-03-31	renbin.guo modify creat verion 2	implement ls -l	
+ *   		2017-04-01	fixed bug2 :add output format control (输出格式控制)
  *
  ***************************************************************/
 #include<stdio.h>
