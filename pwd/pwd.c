@@ -7,6 +7,10 @@
  *       	uses readdir() to get info about each thing
  *        
  *               bug: prints an empty string if run from "/"
+ *   note:
+ *   	renbin.guo added  
+ *      ./pwd  不能作用了ln 的目录，不然会出错 error looking for inum 1。
+ *
  */
 #include	<stdio.h>
 #include	<sys/types.h>
