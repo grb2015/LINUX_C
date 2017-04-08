@@ -1,8 +1,5 @@
-#include	<stdio.h>
-#include	<fcntl.h>
-#include	<utmp.h>
-
 /***********************************************************************
+ *
  *   write1.c
  *   
  *    	purpose: send messages to another terminal
@@ -25,7 +22,11 @@
  *
  ************************************************************************/
 
-main( int ac, char *av[] )
+#include        <stdio.h>
+#include        <fcntl.h>
+#include        <utmp.h>
+
+int main( int ac, char *av[] )
 {
 	int	fd;
 	char	buf[BUFSIZ];
