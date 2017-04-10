@@ -5,7 +5,10 @@
  * 	brief	：	set tty into char-by-char mode,read char,return result
  * 			(对play0.c的改进，现在按一个键就立即返回，不需要按enter)
  * 	history	:	2017-04-10	renbin.guo creted
- * 	note	:
+ * 	note	:	不足之处：	
+ * 			  如果输入非y or n，最好是不要打印出来
+ * 			 better:  do no echo inappropriate input
+ * 				
  *
  *******************************************/
 #include<stdio.h>
