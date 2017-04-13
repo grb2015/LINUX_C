@@ -5,9 +5,12 @@
  *   			  and no-delay mode
  *                           (对play2的改进，增加timeout)
  *      
- *   note         :       better: timeout if user walks away
- *        
+ *   note         :       better:  bug1.如果设置睡眠时间为2s,那么即使您输入了y/n，也要等2s才响应。(通过设置小而多的休眠时间解决)
+ *   				   bug2.如果输入ctrl+c，不但会终止该程序，而且会终止会话(并没有这个问题)
+ *                        
+ *
  *   history      :       2017-04-12      renbin.guo created
+ *   			  2017-04-13	  renbin.guo fixed bug1
  *           
  ** ***********************************************/
 
@@ -17,8 +20,10 @@
 #include	<string.h>
 
 #define	QUESTION	"Do you want another transaction"
-#define SLEEPTIME	2
-#define TRIES		3
+//#define SLEEPTIME	2
+#define SLEEPTIME	1	//renbin.guo modify 2017-04-13 for bug1  ,注意这里不能设置为0.8,参数为整数
+//#define TRIES		3
+#define TRIES		7	//renbin.guo modify 2017-04-13 for bug1 
 
 void set_nodelay_mode();
 int get_response(char *question,int maxtries);
