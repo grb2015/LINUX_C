@@ -48,7 +48,7 @@ int get_response(char *question,int maxtries)
 	fflush(stdout);		//这里很重要
 	while(1){
 		sleep(SLEEPTIME);
-		input = tolower(get_ok_char());
+		input = tolower(get_ok_char());		//注意，这里的getchar()不会阻塞进行等待输入，所以定时器才起作用
 		switch( input ){
 			case 'y': 
 				 return 0;
