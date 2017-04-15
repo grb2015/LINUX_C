@@ -19,7 +19,7 @@ int main()
 	addstr("Hello ,word !");	/*在坐标(10,20)处打印字符串*/
 	move(LINES-1,0);	/* 让光标停留在左下角*/
 
-	refresh();
+	refresh();	// 开始绘画
 	getch();
 	
 	endwin();	// turn off curses
