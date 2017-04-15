@@ -1,0 +1,7 @@
+you need to install ncurses first ！
+
+运行本章的程序需要先安装ncurses库
+	centos 安装方法：yum install ncurses-devel
+
+usage:
+	gcc hello1.c -o hello1 -lcurses
