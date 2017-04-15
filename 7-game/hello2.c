@@ -2,6 +2,7 @@
  * 	name	:	hello2.c
  * 	author	:	renbin.guo	
  * 	brief	:	show how to use curses  functions with a  loop
+ * 			outline  init draw stuff ,wrap up
  * 	history	:	2017-04-15	renbin.guo created
  *
  *************************************************************/
