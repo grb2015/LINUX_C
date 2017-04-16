@@ -41,8 +41,8 @@ int main()
 	else
 		while(1)
 		{
-			puase();
-			printf("receive siganl %d times.",++count);
+			pause();
+			printf("\nreceive siganl %d times ",++count);
 		}
 	return 0;
 }
@@ -56,7 +56,7 @@ int main()
 void countdown(int signum)
 {
 	static int num = 10;
-	printf("%d..",num--);
+	num--;
 	fflush(stdout);
 	if(num < 0)
 	{
@@ -80,7 +80,7 @@ int set_ticker(int n_msecs)
 	long   n_usecs;
 	
 	n_sec = n_msecs / 1000;
-	n_usecs= (n_msecs % 1000) * 1000L;
+	n_usecs= (n_msecs % 1000) * 1000L;	// 小数的秒数转为微秒	注意这里的'L'
 
 	printf("n_usecs = %ld ",n_usecs);
 
