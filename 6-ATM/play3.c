@@ -50,7 +50,9 @@ int get_response(char *question,int maxtries)
 {
 	int input;
 	printf("%s (y/n)?", question);
-	fflush(stdout);		//这里很重要
+//	fflush(stdout);		//这里很重要,书上说如果不加这句，则在调用getchar之前，提示符将不能显示。因为终端驱动程序是一行行的
+				//缓冲输出，知道遇到一个换行符或者程序试图从终端读取输入时才将stdout输出。实际验证并不是这样，加不加
+				//这句效果一样
 	while(1){
 		sleep(SLEEPTIME);
 		input = tolower(get_ok_char());		//注意，这里的getchar()不会阻塞进行等待输入，所以定时器才起作用
