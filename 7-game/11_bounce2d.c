@@ -74,7 +74,7 @@ void set_up()
 	crmode();
 
 	signal(SIGINT,SIG_IGN); //忽略中断信号
-	// curses.h
+	// curses.h	该函数就是把指定的symbol移动到(x_pos,y_pos)处
 	mvaddch(the_ball.y_pos,the_ball.x_pos,the_ball.symbol);
 	refresh();
 
