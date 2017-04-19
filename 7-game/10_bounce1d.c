@@ -47,7 +47,6 @@ int main()
 	signal(SIGALRM,move_msg); // 设置定时器的处理函数为move_msg
 
 	/* set_ticker 设置一个200 微秒的定时器 */
-	set_ticker(delay);	// renbin.guo added不做错误处理真的好吗?
 	if(set_ticker(delay) == -1)	
 	{
 		printf("set_ticker return errro\n");
