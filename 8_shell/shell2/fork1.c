@@ -9,6 +9,7 @@ int main(void)
 {
 	pid_t  pid;
 	
+	// 注意，子进程并不是从main开始执行，而是从它产生的地方
 	printf("Process Creation Study\n");
 	pid = fork();
 	
