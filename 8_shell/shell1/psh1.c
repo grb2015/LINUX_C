@@ -1,9 +1,23 @@
 /* 带提示符的shell
  *  uage:
- *  	./psh1
- *  	arg[0]? ls
- *  	arg[1]？ -l
- *  	arg[0]? .
+	 [root@localhost shell1]# ./psh
+	 arg[0]?ls
+	 arg[1]?-l
+	 arg[2]?.
+	 arg[3]?
+	 total 13
+	 	-rwxrwxrwx. 1 root root  502 Apr 22 10:55 1_exec1.c
+		-rwxrwxrwx. 1 root root 8169 Apr 22 11:05 psh
+		-rwxrwxrwx. 1 root root 1508 Apr 22 11:06 psh1.c
+	 [root@localhost shell1]# 
+*
+ *  bugs:
+ *  	1. 程序运行一次就退出了。而标准的shell却可以接着运行下一个命令
+ *  	2. 输入一个命令要很多行，能不能在一行输入完命令
+ *  		
+ *  note : 问题1可以使用fork()开子进程来运行
+ *
+ *
  */
 #include<stdio.h>
 #include<string.h>
