@@ -1,0 +1,20 @@
+# !/bin/sh
+# script3 - shows how an environment variable is passed to commands
+# TZ is timezone ,affect things like date,and ls -l
+# renbin.guo added
+# (演示环境变量的是如何传给命令行参数的，TZ时区,影响date,ls -l等命令)
+# shell脚本中临时设置的环境变量在只对当前程序有效
+echo "The time in Bostoon is"
+	TZ=EST5EDT
+	export TZ
+	date
+echo "The time in chicage is "
+	TZ=CST6CDT
+	date
+echo "The time in LA is "
+	TZ=PST8PDT
+	date
+
+
+
+

@@ -1,0 +1,18 @@
+#!/bin/sh
+# script2: a real program with variables ,input and control flow
+# shell脚本,可以包含变量，控制流
+
+BOOK=$HOME/phonebook.data
+echo find what name in phonebook
+read NAME	# 从键盘输入值,填充NAME变量
+if grep $NAME $BOOK > ./pb.tmp	 # 如果在BOOK中有NAME的值
+then 
+	echo Entries for $NAME
+	cat ./pb.tmp
+else
+	echo No entries for $NAME
+fi
+rm ./pb.tmp
+
+
+
