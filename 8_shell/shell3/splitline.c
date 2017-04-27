@@ -1,3 +1,10 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include"smsh.h"  // 包含了fatal
+
+#define is_delim(x) (x== ' '|| x == '\t')
+
 /******************************************
  * 	brief:	get next command
  * 		这个分明就是把文件fd中的数据拷贝到buf中啊，哪里是get next command ?
@@ -12,7 +19,7 @@
 char * next_cmd(char*prompt,FILE *fp)
 {
 	char *buf;
-	int bufsapce = 0;
+	int bufspace = 0;
 	int pos = 0;
 	int c;
 	
@@ -68,7 +75,7 @@ void*erealloc(void *p,size_t n)
 /*
  * 将字符串line解析为命令行参数,存放在指针数组里返回。
  */
-char** splitlien(char *line)
+char** splitline(char *line)
 {
 	char 	*newstr();
 	char 	**args;		// 指针数组，存放解析后的参数
@@ -93,11 +100,13 @@ char** splitlien(char *line)
 		if(*cp == '\0')
 			break;
 		// 空间不够,参数大于了spots(103),一般是不可能的。
+		// 为什么是加1,因为最后一个要存放NULL
 		if(argnum+1 >= spots)
 		{
 			// 
 			args = erealloc(args,bufspace+BUFSIZ);
-		
+			bufspace += BUFSIZ;
+			spots += (BUFSIZ/sizeof(char*));
 		}
 		
 		start = cp;
@@ -105,11 +114,47 @@ char** splitlien(char *line)
 		// 现在cp不为空格,循环，直到遇到空格
 		while(*++cp != '\0' && !(is_delim(*cp)))
 			len ++;
-		args[argnum++] = nwestr(start,len);	// newstr中会malloc len长度的空间，然后把地址返回给指针args[argnum+]
+		args[argnum++] = newstr(start,len);	// newstr中会malloc len长度的空间，然后把地址返回给指针args[argnum+]
 	}
 	args[argnum] = NULL;
 	return args;
 }
+
+/*
+ *  breif  : 开辟一段动态内存，将从start起的连续len个字符拷贝到开辟的内存中
+ *  returns: char* 开辟的动态内存
+ *  	     程序退出：	动态内存申请失败
+ */
+
+char *newstr(char *start,int len)
+{
+	char *p = emalloc(len+1);	// emlloac已经包含了错误检测,所以放心使用
+	strncpy(p,start,len);
+	*(p+len) = '\0';
+	return p;
+}
+
+
+void  freelist(char **list)
+{
+	char ** cp = list;
+	while(*cp)
+	{
+		free(*cp);
+		cp++;
+	}
+	freelist(list);
+}
+/*
+ * 错误处理函数
+ */
+void fatal(char *s1, char *s2, int n)
+{
+	fprintf(stderr,"Error: %s,%s\n", s1, s2);
+	exit(n);
+}
+		
+	
 
 
 	

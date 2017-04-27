@@ -5,20 +5,24 @@
  *
  * 	将之前的多行命令的shell改进为一行命令
  * history :	2017-04-25 renbin.guo created
+ * 
+ * note:	把所有函数接口都加到一个smsh.h里面了
  *
  */
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
 #include<signal.h>
-#include<smsh.h>
+#include "smsh.h"
 
+void setup();
 #define	 DFL_PROMPT "> "
 int main()
 {
 	char *cmdline;
 	char *prompt;
 	char **arglist;
+	int result;
 
 	prompt = DFL_PROMPT;
 	setup();
