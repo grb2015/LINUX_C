@@ -7,6 +7,8 @@
  * history :	2017-04-25 renbin.guo created
  * 
  * note:	把所有函数接口都加到一个smsh.h里面了
+ * 
+ * 		bug: github #6 执行一次at命令后，就发生了错误 core dump
  *
  */
 #include<stdio.h>
