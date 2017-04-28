@@ -8,7 +8,8 @@
  * 
  * note:	把所有函数接口都加到一个smsh.h里面了
  * 
- * 		bug: github #6 执行一次at命令后，就发生了错误 core dump
+ * 		bug1: github #6 执行一次at命令后，就发生了错误 core dump
+ * 		bug2: 直接运行ls ,非常严重的错误
  *
  */
 #include<stdio.h>
