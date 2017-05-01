@@ -1,0 +1,12 @@
+popen.c open_ex3.c popendemo.c were not included in the chapter.
+
+
+
+本章没有包含书中的popen.c open_ex3.c popendemo.c 三个程序。
+popen的用法：
+	FIEL *fp;
+	fp = popen("ls","r");
+	fgets(buf,len,fp);
+	pclose(fp)
+可见，它是从打开一个进程，然后得到数据,其实现见popen.c
+
