@@ -29,6 +29,19 @@
  *	计算引擎是dc.bc与dc的关系可看做协程.
  *  history:
  *  	2017-05-01 renbin.guo created
+ *  note:
+ *  	usage:
+ *  		gcc 1_tinybc.c
+ *
+ *  		output:
+ *  		
+ *  		[root@ 11_coroutine_and_socket]# ./a.out 
+ *  		tinybc:2+4
+ *  		2 + 4 = 6
+ *  		tinybc:4^3
+ *  		4 ^ 3 = 64    // pressed ctrl+d
+ *  		tinybc:[root@ 11_coroutine_and_socket]# 
+ *
  ********************************************************************/ 
 
 #include<stdio.h>
