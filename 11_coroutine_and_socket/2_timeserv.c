@@ -1,12 +1,21 @@
 /* timeserv.c - a socket-based time of day server
  */
 /******************************************************
- *  * brief:  a socket-based time of day server
- *   *
- *    *
- *     * history: 2017-05-01 renbin.guo created
- *      *
- *       * ***************************************************/
+ *    brief:  a socket-based time of day server
+ *    history: 2017-05-01 renbin.guo created
+ *    note:
+ *    	usage:./2
+ *    		telnet 'hostname' 13000  // 客户端连接
+ *    			
+ *    	bug    
+ *    		[root@ 11_coroutine_and_socket]# ./2
+ *    		Segmentation fault (core dumped)
+ *    		[root@ 11_coroutine_and_socket]# 
+ *    		
+ *    		启动服务器出错
+ *      
+ *
+ ****************************************************/
 
 #include  <stdio.h>
 #include  <unistd.h>
