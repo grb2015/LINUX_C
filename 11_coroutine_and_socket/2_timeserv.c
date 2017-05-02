@@ -2,11 +2,14 @@
  */
 /******************************************************
  *    brief:  a socket-based time of day server
+	      一直监听客户的连接,客户端连接后，发送服务器上的时间给客户端，然后关掉这路连接，继续监听。
+	      除非 kill pid  杀死服务器进程
+
  *    history: 2017-05-01 renbin.guo created
  *    note:
  *    	usage:
 		gcc 2_timeserv.c -o 2
-		./2
+		./2		
  *    		telnet 'hostname' 13000  // 客户端连接
  *    			
  *    	bug #7
@@ -76,6 +79,8 @@ int main(int ac, char *av[])
        */
 
 	bzero( (void *)&saddr, sizeof(saddr) ); /* clear out struct     */
+
+	// 先通过gethostname查找本机对于的hostname,然后通过hostname得到ip
 
 	gethostname( hostname, HOSTLEN );       /* where am I ?         */
 	hp = gethostbyname( hostname );         /* get info about host  */
