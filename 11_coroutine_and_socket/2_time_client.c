@@ -1,5 +1,22 @@
 /* timeclnt.c - a client for timeserv.c
  *              usage: timeclnt hostname portnumber
+ * history : renbin.guo added 2017-05-01 
+ *  
+ * note:
+		usage:
+		gcc 2_time_client.c -o 2c
+
+		1. 开启远端的服务器
+
+		2. 客户端连接
+			grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ ./2c xxx 13000
+			The time here is ..Tue May  2 13:53:43 2017
+			grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ 
+		3.服务器的变化
+			grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ ./2
+			Wow! got a call!
+
+	
  */
 #include       <stdio.h>
 #include       <sys/types.h>

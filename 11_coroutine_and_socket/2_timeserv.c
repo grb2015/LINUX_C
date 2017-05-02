@@ -4,16 +4,39 @@
  *    brief:  a socket-based time of day server
  *    history: 2017-05-01 renbin.guo created
  *    note:
- *    	usage:./2
+ *    	usage:
+		gcc 2_timeserv.c -o 2
+		./2
  *    		telnet 'hostname' 13000  // 客户端连接
  *    			
- *    	bug    
+ *    	bug #7
  *    		[root@ 11_coroutine_and_socket]# ./2
  *    		Segmentation fault (core dumped)
  *    		[root@ 11_coroutine_and_socket]# 
  *    		
  *    		启动服务器出错
- *      
+
+		但是Ubuntu上运行正确！
+
+		1.启动服务器：	
+		grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ ./2
+
+
+		2.在另外一个终端作为客户端连接：
+		grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ hostname
+		xxx
+		grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ telnet xxx 13000
+		Trying 127.0.1.1...
+		Connected to xxx.
+		Escape character is '^]'.
+		The time here is ..Tue May  2 13:44:18 2017
+		Connection closed by foreign host.
+		grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ 
+	
+		3.服务器的变化
+		grb-sim@xxx:~/github/LINUX_CMD/11_coroutine_and_socket$ ./2
+		Wow! got a call!
+		
  *
  ****************************************************/
 
