@@ -109,6 +109,9 @@ int main(int ac, char *av[])
 	       if ( sock_fd == -1 )
 		       oops( "accept" );       /* error getting calls  */
 
+	        // renbin.guo add comment  2017-05-21,  注意这里int fd 转为了FILE fd  (sock_fp),然后向FILE fd中写
+	        // 而注意到2_time_clien.c中确用的是read,wrire系统调用
+	        
 	       sock_fp = fdopen(sock_fd,"w");  /* we'll write to the   */
 	       if ( sock_fp == NULL )          /* socket as a stream   */
 		       oops( "fdopen" );       /* unless we can't      */
