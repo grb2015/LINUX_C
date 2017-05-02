@@ -59,6 +59,7 @@
 int main(int ac, char *av[])
 {
 	struct  sockaddr_in   saddr;   /* build our address here */
+	// 注意这个结构,用来承接gethostbyname的返回值
 	struct	hostent		*hp;   /* this is part of our    */
 	char	hostname[HOSTLEN];     /* address 	         */
 	int	sock_id,sock_fd;       /* line id, file desc     */
