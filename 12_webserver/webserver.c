@@ -77,6 +77,7 @@ main(int ac, char *av[])
 		fpin = fdopen(fd, "r" );
 
 		/* read request */
+		// 读取客户端的第一行		
 		fgets(request,BUFSIZ,fpin);
 		printf("got a call: request = %s", request);
 		read_til_crnl(fpin);
@@ -93,6 +94,8 @@ main(int ac, char *av[])
    skip over all request info until a CRNL is seen
    ------------------------------------------------------ */
 
+// // fgets返回的是buf的首地址，
+// // 一直读取，直到读取的为NULL或者遇到\r\n，我们知道，在客户端输入的时候，是输入过一个空行的，fgets读空行就会返回NULL
 read_til_crnl(FILE *fp)
 {
 	char	buf[BUFSIZ];
@@ -114,19 +117,24 @@ process_rq( char *rq, int fd )
 	/* create a new process and return if not the child */
 	if ( fork() != 0 )
 		return;
-
+	//  rq 这里是 GET test.html HTTP/1.0 ，所以 cmd = GET ，arg=./test.html
 	strcpy(arg, "./");		/* precede args with ./ */
 	if ( sscanf(rq, "%s%s", cmd, arg+2) != 2 )
 		return;
 
+	// 如果不是GET方法，则不支持,直接返回
 	if ( strcmp(cmd,"GET") != 0 )
 		cannot_do(fd);
+	// 如果arg路径不存在,返回404
 	else if ( not_exist( arg ) )
 		do_404(arg, fd );
+	// 如果arg是一个目录，则打印该目录下的所有文件
 	else if ( isadir( arg ) )
 		do_ls( arg, fd );
+	// 如果arg 请求的是以cgi结尾的文件,则是可执行的文件,执行
 	else if ( ends_in_cgi( arg ) )
 		do_exec( arg, fd );
+	// 其它情况, 输出该文件的内容
 	else
 		do_cat( arg, fd );
 }
