@@ -18,11 +18,14 @@
 	gcc 12_webserver.c socklib.c -o sebserv
 
 	1. on the server:	
-		grb-sim@xxx:~/github/LINUX_CMD/12_webserver$ ./webserv xxx  12345
+		grb-sim@xxx:~/github/LINUX_CMD/12_webserver$ ./webserv  12345
 	
 	
 	2. on the client:
-
+	
+	grb-sim@xxx:~/github/LINUX_CMD/12_webserver$ hostname
+	xxx	//my host name is 'xxx'
+	grb-sim@xxx:~/github/LINUX_CMD/12_webserver$
 	grb-sim@xxx:~$ telnet xxx 12345
 	Trying 127.0.1.1...
 	Connected to xxx.
@@ -36,6 +39,11 @@
 	Connection closed by foreign host.
 	grb-sim@xxx:~$ 
 
+	3. on the server
+	grb-sim@xxx:~/github/LINUX_CMD/12_webserver$ ./webserv 12345
+	got a call: request = GET test.html HTTP/1.0
+
+	------------------------------------------------------------
 	note:
 		bug ?  本机的IP是. 172.21.1.81  它是一个内网地址，所以无法用外部的浏览器通过 http://xxx:12345来打开,用本地的浏览器是否可以呢?
 
