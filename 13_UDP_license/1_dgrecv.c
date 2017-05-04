@@ -9,6 +9,10 @@
  *  			gcc dgrec.c dgram.c -o dgrecv
  *  			./dgrecv portnum
  *  
+ *  		[root@grb_host 13_UDP_license]# hostname
+ *  		grb_host
+ *  		[root@grb_host 13_UDP_license]# ./dgrecv 12345
+ *
  *  
  *********************************/
 
