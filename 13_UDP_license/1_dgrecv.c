@@ -53,7 +53,7 @@ int main(int ac, char *av[])
     /* receive messaages on that socket */
 
 	saddrlen = sizeof(saddr);
-	// 注意这里的saddr是得到客户端的addr
+	// 从客户端接收数据,同时得到客户端的IP和port. 注意这里的saddr是得到客户端的addr
 	while( (msglen = recvfrom(sock,buf,BUFSIZ,0,
 				(struct sockaddr *) &saddr,&saddrlen))>0 ) {
 		buf[msglen] = '\0';
