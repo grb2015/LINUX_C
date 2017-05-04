@@ -10,6 +10,13 @@
  * history: 2017-05-04 renbin.guo created
  *
  * usge:
+ * 	1.在另一终端启动服务器
+ * 		 [root@grb_host 13_UDP_license]# hostname
+ * 		 grb_host
+ * 		 [root@grb_host 13_UDP_license]# ./dgrecv 12345
+ *
+ * 		
+ * 	2. 运行客户端
  * 	[root@grb_host 13_UDP_license]# hostname
  * 	grb_host
  * 	[root@grb_host 13_UDP_license]# ./dgsend grb_host 12345 aaa
