@@ -25,6 +25,20 @@
  *
  * 	bug: make addr: Resource temporarily unavailable
  *
+ *     在另外一台机器上运行是正常的(ubuntu)
+	
+	1. server
+	grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license$ ./recv 33333
+	
+	2. client
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license$ ./send  xxx 33333 hellooo
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license$ 
+
+	3. server
+		dgrecv: got a message: hellooo
+  		from: 127.0.0.1:41515
+
+ *
 *****************************************************/
 #include	<stdio.h>
 #include	<stdlib.h>
