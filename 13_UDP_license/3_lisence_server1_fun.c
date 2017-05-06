@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * lsrv_funcs1.c
  * functions for the license server
  */
@@ -63,6 +63,8 @@ handle_request(char *req,struct sockaddr_in *client, socklen_t addlen)
 	char	*response;
 	int	ret;
 
+    // 这些固定的字符串,就是协议!
+    
 	/* act and compose a response */
 	if ( strncmp(req, "HELO", 4) == 0 )
 		response = do_hello(req);
@@ -99,7 +101,7 @@ char *do_hello(char *msg_p)
 	for(x = 0; x<MAXUSERS && ticket_array[x] != TICKET_AVAIL; x++) 
 		;
 
-    //  ���ʣ�����������	if(num_tickets_out >= MAXUSERS) �ѵ�����һ�����?
+    // 这里和上面的(num_tickets_out >= MAXUSERS)判断不是一样的么?
 	/* A sanity check - should never happen */
 	if(x == MAXUSERS) {
 		narrate("database corrupt","",NULL);
@@ -109,6 +111,8 @@ char *do_hello(char *msg_p)
 	/* Found a free ticket.  Record "name" of user (pid) in array.
 	 * 	generate ticket of form: pid.slot
 	 */
+	// ticket_array[x]的内容应该是存放的是哪个客户端进程请求的，也就是记录客户端进程的pid
+	// (msg_p + 5)即跳过协议开头的'HELO'
 	ticket_array[x] = atoi(msg_p + 5); /* get pid in msg */
 	sprintf(replybuf, "TICK %d.%d", ticket_array[x], x);
 	num_tickets_out++;
@@ -121,6 +125,8 @@ char *do_hello(char *msg_p)
  * IN  msg_p			message received from client
  * Results: ptr to response
  */
+
+ /// msg_p会包含具体释放哪个ticket_array[i]
 char *do_goodbye(char *msg_p)
 {
 	int pid, slot;		/* components of ticket	*/

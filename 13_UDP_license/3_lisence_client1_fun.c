@@ -1,4 +1,4 @@
-/***************************************************************************
+ï»¿/***************************************************************************
  * lclnt_funcs1.c: functions for the client of the license server
  */
 
@@ -13,7 +13,7 @@
  */
 static int pid = -1;			/* Our PID */
 static int sd = -1;			/* Our communications socket */
-static struct sockaddr serv_addr;	/* Server address */        //¡¡ÕâÀï×÷ÎªÈ«¾Ö±äÁ¿£¬ËùÓĞº¯Êı¶¼ÄÜ·ÃÎÊ	
+static struct sockaddr serv_addr;	/* Server address */        //ã€€è¿™é‡Œä½œä¸ºå…¨å±€å˜é‡ï¼Œæ‰€æœ‰å‡½æ•°éƒ½èƒ½è®¿é—®	
 static socklen_t serv_alen;		/* length of address */
 static char ticket_buf[128];		/* Buffer to hold our ticket */
 static have_ticket = 0;			/* Set when we have a ticket */
