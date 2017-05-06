@@ -1,0 +1,104 @@
+一. 先测试正常的情况	
+    test1:
+
+	1.server
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ ./server2 
+
+	2. client
+	grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ ./client2&  ./client2&  ./client2
+	[3] 2949
+	[4] 2950
+	CLIENT [2949]: got ticket 2949.0
+	SuperSleep version 1.0 Running - Licensed Software
+	CLIENT [2951]: got ticket 2951.1
+	SuperSleep version 1.0 Running - Licensed Software
+	CLIENT [2950]: got ticket 2950.2
+	SuperSleep version 1.0 Running - Licensed Software
+	CLIENT [2949]: Validated ticket:  GOOD Valid ticket
+	CLIENT [2951]: Validated ticket:  GOOD Valid ticket
+	CLIENT [2950]: Validated ticket:  GOOD Valid ticket
+	CLIENT [2949]: released ticket OK 
+	CLIENT [2951]: released ticket OK 
+	[3]-  Done                    ./client2
+	CLIENT [2950]: released ticket OK 
+	grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$		
+
+	3. server
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ ./server2 
+		SERVER: GOT: HELO 2949 
+		SERVER: SAID: TICK 2949.0 
+		SERVER: GOT: HELO 2951 
+		SERVER: SAID: TICK 2951.1 
+		SERVER: GOT: HELO 2950 
+		SERVER: SAID: TICK 2950.2 
+		SERVER: GOT: VALD 2949.0 
+		SERVER: SAID: GOOD Valid ticket 
+		SERVER: GOT: VALD 2951.1 
+		SERVER: SAID: GOOD Valid ticket 
+		SERVER: GOT: VALD 2950.2 
+		SERVER: SAID: GOOD Valid ticket 
+		SERVER: GOT: GBYE 2949.0 
+		SERVER: SAID: THNX See ya! 
+		SERVER: GOT: GBYE 2951.1 
+		SERVER: SAID: THNX See ya! 
+		SERVER: GOT: GBYE 2950.2 
+		SERVER: SAID: THNX See ya! 	
+
+
+    test2:	
+	1.server
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ ./server2 
+	
+	2.client
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ ./client2&  ./client2&  ./client2& ./client2 
+		[3] 2942
+		[4] 2943
+		[5] 2944
+		CLIENT [2942]: got ticket 2942.0
+		SuperSleep version 1.0 Running - Licensed Software
+		CLIENT [2945]: got ticket 2945.2
+		CLIENT [2944]: got ticket 2944.1
+		SuperSleep version 1.0 Running - Licensed Software
+		SuperSleep version 1.0 Running - Licensed Software
+		CLIENT [2943]: Could not get ticket FAIL no tickets available
+		CLIENT [2942]: Validated ticket:  GOOD Valid ticket
+		CLIENT [2944]: Validated ticket:  GOOD Valid ticket
+		CLIENT [2945]: Validated ticket:  GOOD Valid ticket
+		CLIENT [2942]: released ticket OK 
+		CLIENT [2944]: released ticket OK 
+		CLIENT [2945]: released ticket OK 
+		[3]   Done                    ./client2
+		[4]-  Done                    ./client2
+		[5]+  Done                    ./client2
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ 
+
+
+
+	3.server:
+		grb-sim@xxx:~/github/LINUX_CMD/13_UDP_license/lisence_version2$ ./server2 
+		SERVER: GOT: HELO 2942 
+		SERVER: SAID: TICK 2942.0 
+		SERVER: GOT: HELO 2944 
+		SERVER: SAID: TICK 2944.1 
+		SERVER: GOT: HELO 2945 
+		SERVER: SAID: TICK 2945.2 
+		SERVER: GOT: HELO 2943 
+		SERVER: SAID: FAIL no tickets available 
+		SERVER: GOT: VALD 2942.0 
+		SERVER: SAID: GOOD Valid ticket 
+		SERVER: GOT: VALD 2944.1 
+		SERVER: SAID: GOOD Valid ticket 
+		SERVER: GOT: VALD 2945.2 
+		SERVER: SAID: GOOD Valid ticket 
+		SERVER: GOT: GBYE 2942.0 
+		SERVER: SAID: THNX See ya! 
+		SERVER: GOT: GBYE 2944.1 
+		SERVER: SAID: THNX See ya! 
+		SERVER: GOT: GBYE 2945.2 
+		SERVER: SAID: THNX See ya! 
+
+二、测试某个客户端崩溃
+
+三、测试服务器崩溃
+
+		

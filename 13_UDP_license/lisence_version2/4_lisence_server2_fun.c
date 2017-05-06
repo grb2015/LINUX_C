@@ -154,9 +154,12 @@ static char *do_goodbye(char *msg_p)
 narrate(char *msg1, char *msg2, struct sockaddr_in *clientp)
 {
 	fprintf(stderr,"\t\tSERVER: %s %s ", msg1, msg2);
+	// renbin.guo fix bug #9 2017-05-06
+	/*
 	if ( clientp )
 		fprintf(stderr,"(%s:%d)", inet_ntoa(clientp->sin_addr),
 					  ntohs(clientp->sin_port) );
+	*/
 	putc('\n', stderr);
 }
 
