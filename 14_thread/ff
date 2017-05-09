@@ -1,0 +1,11 @@
+#include<stdio.h>
+
+int main()
+{
+	int c;
+	FILE *fd = fopen("file1",'w');
+	while( (c=getchar()) != EOF);
+		fputc(c,fd);
+	fclose(fd);
+}
+
