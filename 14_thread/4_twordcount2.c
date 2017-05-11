@@ -1,5 +1,17 @@
 /* twordcount2.c - threaded word counter for two files.	   */
 /*                 version 2: uses mutex to lock counter   */
+/*****************************************************************
+
+    brief: 
+            使用锁来解决不同线程对同一全局变量的正确使用
+    note:
+            使用锁效率比较低，对所有文件中的每一个单词都需要执行检查，设置以及释放锁的操作。
+        
+    
+*/
+
+
+
 
 #include  <stdio.h>
 #include  <pthread.h>
