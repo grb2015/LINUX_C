@@ -55,7 +55,8 @@ main(int ac, char *av[])
 	while( reports_in < 2 ){
 		printf("MAIN: waiting for flag to go up\n");
 		pthread_cond_wait(&flag, &lock); /* wait for notify */  // 这里会阻塞，挂起线程，进行等待。除非线程1或2中调用了pthread_cond_signal(&flag);
-		                                                        // 光得到这个flag还不够，后一个参数表示他还要得到锁才可以解除阻塞
+		                                                        // 光得到这个flag还不够，后一个参数表示他还要得到锁才可以解除阻塞(不是这样理解)
+                                                                // 第二个参数到底是干嘛的还有待分析
 		printf("MAIN: Wow! flag was raised, I have the lock\n");
 		printf("%7d: %s\n", mailbox->count, mailbox->fname);
 		total_words += mailbox->count;
