@@ -25,8 +25,7 @@
     note :
             better:统计的功能使用的是共享变量的机制，但是没有加锁。互斥访问
 *
-*
-/
+*/
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
