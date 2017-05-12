@@ -13,6 +13,7 @@
  *  			
  *  	note   :	
  *  		bug:	疑问：如果我们按键，把y_ttm减为负数了怎么办?貌似是个bug
+                    减为了负数，则这个方向上就不能移动了，只能在另外一个方法往复 // 2017-05-11 renbin.guo added
  *  	
  *  		gcc 11_bounce2d.c set_ticker.c -lcurses -o bounce2d 
  *  		
