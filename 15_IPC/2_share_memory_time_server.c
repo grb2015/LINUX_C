@@ -1,6 +1,22 @@
-/* shm_ts.c : the time server using shared memory, a bizarre application  */
+ï»¿/* shm_ts.c : the time server using shared memory, a bizarre application  */
 /*
-    brief : Ö®Ç°ÊÇÓÃsocketÊµÏÖµÄÈÕÆÚ·şÎñÆ÷ºÍ¿Í»§¶Ë£¬ÕâÀïÊ¹ÓÃ¹²ÏíÄÚ´æ
+    brief : ä¹‹å‰æ˜¯ç”¨socketå®ç°çš„æ—¥æœŸæœåŠ¡å™¨å’Œå®¢æˆ·ç«¯ï¼Œè¿™é‡Œä½¿ç”¨å…±äº«å†…å­˜
+        
+    history: 2017-05-13 renbin.guo created
+
+    note :
+            usage:
+                    1. server
+
+                        [root@grb_host 15_IPC]# ./2_server 
+
+                    2. client
+                        [root@grb_host 15_IPC]# ./2_client 
+                        The time, direct from memory: ..Sun May 14 21:29:29 2017
+                        [root@grb_host 15_IPC]#
+            bug:    å®¢æˆ·ç«¯å’ŒæœåŠ¡å™¨å¯ä»¥åŒæ—¶è®¿é—®å…±äº«å†…å­˜ï¼Œå¦‚æœå®¢æˆ·ç«¯åœ¨è¯»çš„æ—¶å€™ï¼ŒæœåŠ¡å™¨åœ¨
+                    å†™ï¼Œé‚£ä¹ˆå¾—åˆ°çš„å°±å¯èƒ½æ˜¯ä¸æ­£ç¡®çš„ã€‚è§£å†³æ–¹æ³•å¯ä½¿ç”¨ä¿¡å·é‡
+
 */
 #include	<stdio.h>
 #include	<sys/shm.h>
@@ -19,21 +35,21 @@ main()
 
 	/* create a shared memory segment */
 
-    // µ÷ÓÃshmget£¬´´½¨¹²ÏíÄÚ´æ¡£·µ»Øseg_id. ×¢ÒâTIME_MEM_KEY£¬¿Í»§¶ËÒ²»áÓÃÍ¬Ò»¸öTIME_MEM_KEY
+    // è°ƒç”¨shmgetï¼Œåˆ›å»ºå…±äº«å†…å­˜ã€‚è¿”å›seg_id. æ³¨æ„TIME_MEM_KEYï¼Œå®¢æˆ·ç«¯ä¹Ÿä¼šç”¨åŒä¸€ä¸ªTIME_MEM_KEY
 	seg_id = shmget( TIME_MEM_KEY, SEG_SIZE, IPC_CREAT|0777 );
 	if ( seg_id == -1 )
 		oops("shmget", 1);
 
 	/* attach to it and get a pointer to where it attaches */
-    // ÒÔseg_id ×÷²ÎÊı£¬·µ»ØÒ»¸ömem_ptr(·ÖÅäµÄ¹²ÏíÄÚ´æµÄÊ×µØÖ·?)
+    // ä»¥seg_id ä½œå‚æ•°ï¼Œè¿”å›ä¸€ä¸ªmem_ptr(åˆ†é…çš„å…±äº«å†…å­˜çš„é¦–åœ°å€?)
 	mem_ptr = shmat( seg_id, NULL, 0 );
 	if ( mem_ptr == ( void *) -1 )
 		oops("shmat", 2);
 
-	/* run for a minute */
+	/* run for a minute ,é é é é é é é é é é */
 	for(n=0; n<60; n++ ){
 		time( &now );			/* get the time	*/
-		// ½«Ê±¼äÈÕÆÚÊı¾İĞ´Èëmem_ptr
+		// å°†æ—¶é—´æ—¥æœŸæ•°æ®å†™å…¥mem_ptr
 		strcpy(mem_ptr, ctime(&now));	/* write to mem */
 		sleep(1);			/* wait a sec   */
 	}
