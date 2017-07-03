@@ -1,8 +1,13 @@
 /*************************************
- *	brief	:  字符动画，但是用户可以控制方向和速度
+ *	brief	:  字符动画，但是用户可以控制方向(只能控制左右移动)和速度
  *	histor	:  2017-04-16	renbin.guo created	
  *	note	:  the main program reads keyboard input
  *		   the handler does the animation(动画)
+ *  uage:
+ *          按' '空格，方向反向
+ *          按'f'   ,速度增大一倍
+ *          按's'   ，速度减小一半
+ *          按'Q'   ,退出程序
  *
 *************************************/
 
