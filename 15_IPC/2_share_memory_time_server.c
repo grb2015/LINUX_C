@@ -28,10 +28,10 @@
 
 main()
 {
-	int	seg_id;
+	int	    seg_id;
 	char	*mem_ptr, *ctime();
 	long	now;
-	int	n;
+	int	    n;
 
 	/* create a shared memory segment */
 
@@ -46,7 +46,8 @@ main()
 	if ( mem_ptr == ( void *) -1 )
 		oops("shmat", 2);
 
-	/* run for a minute ,靠靠靠靠靠靠靠靠靠靠*/
+	/* run for a minute */
+	//renbin.guo added 显然这个服务器只能精确到秒，它一秒钟才更新一次
 	for(n=0; n<60; n++ ){
 		time( &now );			/* get the time	*/
 		// 将时间日期数据写入mem_ptr
