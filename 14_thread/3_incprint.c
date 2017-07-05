@@ -4,7 +4,17 @@
 *  history: 2017-05-09 renbin.guo created
 *  note :
 * 	usage:
-*		gcc -o incprint incprint.c  -lpthread
+*
+*       gcc 3_incprint.c -o 3_incprint -lpthread
+*
+*		[root@localhost 14_thread]# ./3_incprint
+*		count = 1
+*		count = 2
+*		count = 3
+*		count = 4
+*		count = 5
+*		[root@localhost 14_thread]# 
+*
 *		
 *
 *
@@ -24,6 +34,8 @@ main()
 	int       i;
 
 	pthread_create(&t1, NULL, print_count, NULL);
+
+    /* grb added 2017/07/06 主线程会对全局变量增5 */
 	for( i = 0 ; i<NUM ; i++ ){
 		counter++;
 		sleep(1);
@@ -31,6 +43,8 @@ main()
 
 	pthread_join(t1, NULL);
 }
+
+/* 子线程打印全局变量counter,而counter被父进程递增了 */
 void *print_count(void *m)
 {
 	int i;
