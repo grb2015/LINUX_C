@@ -50,7 +50,7 @@ main()
 	//renbin.guo added 显然这个服务器只能精确到秒，它一秒钟才更新一次
 	for(n=0; n<60; n++ ){
 		time( &now );			/* get the time	*/
-		// 将时间日期数据写入mem_ptr
+		// 将时间日期数据写入mem_ptr    renbin.guo aded 2017/07/05 now应该包含了字符串结尾的'\0',而strcpy会复制'\0'
 		strcpy(mem_ptr, ctime(&now));	/* write to mem */
 		sleep(1);			/* wait a sec   */
 	}

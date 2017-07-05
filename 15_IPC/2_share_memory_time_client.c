@@ -26,7 +26,8 @@ main()
 	if ( mem_ptr == ( void *) -1 )
 		oops("shmat",2);
 
-	printf("The time, direct from memory: ..%s", mem_ptr);
+    /* renbin.guo added 2017/07/05 注意到这里，直接打印mem_ptr，说明结尾有'\0' */
+	printf("The time, direct from memory: ..%s", mem_ptr);  
 
 	shmdt( mem_ptr );		/* detach, but not needed here */
 }
