@@ -38,7 +38,7 @@ main()
 
 	/* connect to semaphore set 9900 with 2 semaphores */
 
-    // 注意这个TIME_SEM_KEY值和服务器里面是一样的,从而来建立联系
+    // 注意这个TIME_SEM_KEY值和服务器里面是一样的,从而来建立联系，这里建立了2个信号量
 	semset_id = semget( TIME_SEM_KEY, 2, 0);
 	wait_and_lock( semset_id );
 
@@ -73,6 +73,7 @@ wait_and_lock( int semset_id )
 /*
  * build and execute a 1-element action set:
  *    decrement num_readers
+ *  这里actions[0]为什么说操作的就是n_reader信号量呢?为什么不是n_writers ,答:因为这里有对sem_num赋值为0!
  */
 release_lock( int semset_id )
 {

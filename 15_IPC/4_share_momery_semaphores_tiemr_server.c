@@ -7,6 +7,8 @@
           这里通过信号量来解决.
           读的时候，要等所有的等待写的进程计数为0.
           写的时候，要等所有的等待读的进程计数为0
+
+          所以，本程序要重点看信号量的那些代码，看它是如何对共享内存加锁的。
    history: 2017-05-16 renbin.guo created
 */
 
@@ -46,7 +48,7 @@ main()
     // 获得共享内存 end
 
 
-    // 创建信号量
+    // 创建信号量，注意这里创建了2个信号量!
 	/* create a semset: key 9900, 2 semaphores, and mode rw-rw-rw */
 
 	semset_id = semget( TIME_SEM_KEY, 2, (0666|IPC_CREAT|IPC_EXCL) );
@@ -64,7 +66,7 @@ main()
 	for(n=0; n<60; n++ ){
 		time( &now );			/* get the time	*/
 				printf("\tshm_ts2 waiting for lock\n");
-		wait_and_lock(semset_id);	/* lock memory	*/
+		wait_and_lock(semset_id);	/* lock memory	  对共享内存加锁是通过信号量来实现的，具体来说，是通过semop函数来实现的*/
 				printf("\tshm_ts2 updating memory\n");
 		strcpy(mem_ptr, ctime(&now));	/* write to mem */
 				sleep(5);
@@ -79,8 +81,8 @@ main()
 // 删除信号量
 void cleanup(int n)
 {
-	shmctl( seg_id, IPC_RMID, NULL );	/* rm shrd mem	*/          /*释放共享内存 ,这个只需要在服务器中执行即可,而客户程序中用的是shmdt  renbin.guo /2017/07/05*/
-	semctl( semset_id, 0, IPC_RMID, NULL);	/* rm sem set	*/      /* 释放信号量 */
+	shmctl( seg_id, IPC_RMID, NULL );	/* rm shrd mem	*/      
+	semctl( semset_id, 0, IPC_RMID, NULL);	/* rm sem set	*/
 }
 
 /*
@@ -108,9 +110,10 @@ wait_and_lock( int semset_id )
 	actions[0].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[0].sem_op  = 0 ;	/* wait til no readers	*/
 
+    
 	actions[1].sem_num = 1;		/* sem[1] is n_writers	*/
 	actions[1].sem_flg = SEM_UNDO;	/* auto cleanup		*/
-	actions[1].sem_op  = +1 ;	/* incr num writers	*/
+	actions[1].sem_op  = +1 ;	/* incr num writers	*/  
 
 	if ( semop( semset_id, actions, 2) == -1 )
 		oops("semop: locking", 10);
