@@ -79,8 +79,8 @@ main()
 // 删除信号量
 void cleanup(int n)
 {
-	shmctl( seg_id, IPC_RMID, NULL );	/* rm shrd mem	*/
-	semctl( semset_id, 0, IPC_RMID, NULL);	/* rm sem set	*/
+	shmctl( seg_id, IPC_RMID, NULL );	/* rm shrd mem	*/          /*释放共享内存 ,这个只需要在服务器中执行即可,而客户程序中用的是shmdt  renbin.guo /2017/07/05*/
+	semctl( semset_id, 0, IPC_RMID, NULL);	/* rm sem set	*/      /* 释放信号量 */
 }
 
 /*
