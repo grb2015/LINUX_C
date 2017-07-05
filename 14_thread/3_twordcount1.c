@@ -12,13 +12,15 @@
 			./3_1 file1 file2
 
 grb-sim@xxx:~/github/LINUX_CMD/14_thread$ ./3_1 file1 file2
-  200: total words
+        [root@localhost 14_thread]# ./3_twordcount1 file1 file2 
+            200: file1      // 说明在打印之前，计算已经完成了。
+            200: file2
+            200: total words
+        [root@localhost 14_thread]# 
 
-grb-sim@xxx:~/github/LINUX_CMD/14_thread$ wc -w file1 file2
-100 file1
-100 file2
-200 total
-grb-sim@xxx:~/github/LINUX_CMD/14_thread$ 
+        
+
+
 
 		结论：好像也没有出错啊，是正常的
 
@@ -49,7 +51,9 @@ main(int ac, char *av[])
 	pthread_create(&t1, NULL, count_words, (void *) av[1]);
 	pthread_create(&t2, NULL, count_words, (void *) av[2]);
 	pthread_join(t1, NULL);
+    printf("%5d: %s\n", total_words, av[1]);
 	pthread_join(t2, NULL);
+    printf("%5d: %s\n", total_words, av[2]);
 	printf("%5d: total words\n", total_words);
 }
 void *count_words(void *f)
