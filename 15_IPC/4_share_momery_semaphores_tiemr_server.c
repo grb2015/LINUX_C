@@ -55,9 +55,9 @@ main()
 	if ( semset_id == -1 )
 		oops("semget", 3);
 
-	set_sem_value( semset_id, 0, 0);	/* set counters	*/      // 设置第一个信号量  readernum
+	set_sem_value( semset_id, 0, 0);	/* set counters	*/      // 设置第一个信号量  n_rearer值为0
 	
-	set_sem_value( semset_id, 1, 0);	/* both to zero */         // 设置第二个信号量  readernum
+	set_sem_value( semset_id, 1, 0);	/* both to zero */         // 设置第二个信号量  n_wreite值为0
 
    // 按下ctrl+C
 	signal(SIGINT, cleanup);
@@ -106,15 +106,17 @@ wait_and_lock( int semset_id )
     // sembuf是系统内部结构体
 	struct sembuf actions[2];	/* action set		*/
 
+    // 这里sem_op既不是p操作也不是v操作，而是0，wait for zero
 	actions[0].sem_num = 0;		/* sem[0] is n_readers	*/
 	actions[0].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[0].sem_op  = 0 ;	/* wait til no readers	*/
 
-    
+    // sem_op为1,所以这里是执行V操作，增1
 	actions[1].sem_num = 1;		/* sem[1] is n_writers	*/
 	actions[1].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[1].sem_op  = +1 ;	/* incr num writers	*/  
 
+    // 这里同时操作两个信号量。等待n_readers为0，同时将n_writes +1
 	if ( semop( semset_id, actions, 2) == -1 )
 		oops("semop: locking", 10);
 }
@@ -127,6 +129,7 @@ release_lock( int semset_id )
 {
 	struct sembuf actions[1];	/* action set		*/
 
+//  对信号量1 n_writers执行P操作，减1
 	actions[0].sem_num = 1;		/* sem[0] is n_writerS	*/
 	actions[0].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[0].sem_op  = -1 ;	/* decr writer count	*/

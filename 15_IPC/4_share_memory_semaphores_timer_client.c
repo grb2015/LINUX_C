@@ -58,14 +58,17 @@ wait_and_lock( int semset_id )
 	union semun   sem_info;         /* some properties      */
 	struct sembuf actions[2];	/* action set		*/
 
+    // sem_op为0，wait for zero
 	actions[0].sem_num = 1;		/* sem[1] is n_writers	*/
 	actions[0].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[0].sem_op  = 0 ;	/* wait for 0		*/
 
+    // sem_op为1，执行V操作，对n_readers增1
 	actions[1].sem_num = 0;		/* sem[0] is n_readers	*/
 	actions[1].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[1].sem_op  = +1 ;	/* incr n_readers	*/
 
+    // 这里用数组元素1用于wait for zero，是不是意味着要等0wait成功后，才执行数组元素1的V操作
 	if ( semop( semset_id, actions, 2) == -1 )
 		oops("semop: locking", 10);
 }
@@ -80,6 +83,7 @@ release_lock( int semset_id )
 	union semun   sem_info;         /* some properties      */
 	struct sembuf actions[1];	/* action set		*/
 
+    // 对n_readers执行P操作，减1
 	actions[0].sem_num = 0;		/* sem[0] is n_readers	*/
 	actions[0].sem_flg = SEM_UNDO;	/* auto cleanup		*/
 	actions[0].sem_op  = -1 ;	/* decr reader count	*/
