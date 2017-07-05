@@ -7,6 +7,13 @@
 
 	note:
 			 这种方法的扩展性不是很好,如果要同时计算N各文件呢?
+    usage:
+        [root@localhost 14_thread]# ./4_twordcount3 file1  file2 
+            100: file1
+            100: file2
+            200: total words
+        [root@localhost 14_thread]# 
+
 
 5 *
 6 ***********************************************************/
