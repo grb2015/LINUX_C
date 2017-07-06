@@ -1,12 +1,12 @@
-/* 	brief  ：实现功能 => 让求在上下左右跳动
- *  		实现原理:
+/* 	brief  ：实现功能 => 让球在上下左右跳动
+ *  		实现原理:   如何实现在上下左右移动的，其实就是改变坐标而已!
 		usge:
 				user input: 	
 					s  slow down x component
 				        S: slow y component
  *		 			f  speed up x component
- *		 		        F: speed up component
- *		 	 	        Q quit
+ *		 		     F: speed up component
+ *		 	 	     Q quit
  *  	histroy:			
  *  		2016-04-16	renbin.guo created
  *  		2016-04-18	renbin.guo added command 'note'
@@ -131,7 +131,7 @@ void ball_move(int signum)
 	{
 		mvaddch(y_cur,x_cur,BLANK);	// 这里为什么要两次?
 		mvaddch(y_cur,x_cur,BLANK);
-		mvaddch(the_ball.y_pos,the_ball.x_pos,the_ball.symbol);
+		mvaddch(the_ball.y_pos,the_ball.x_pos,the_ball.symbol);     // 如何实现在上下左右移动的，其实就是改变坐标而已
 		bounce_or_lose(&the_ball);
 		move(LINES-1,COLS-1);
 		refresh();
