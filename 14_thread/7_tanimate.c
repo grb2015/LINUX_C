@@ -12,7 +12,7 @@
             可以接受最多10个命令行参数，使每一个
             参数在不同的行上移动，并且有自己独立
             的速度和方向。用户可以通过按键‘0’，‘1’
-            等使该行的字符串反向。
+            等使该行的字符串反向,按空格使所有字符串反向，本程序不能改变运动速度。。
 
     history:2017-05-12 renbin.guo created
     
@@ -43,7 +43,7 @@ struct	propset {
 		int	dir;	/* +1 or -1	*/
 	};
 
-pthread_mutex_t mx = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mx = PTHREAD_MUTEX_INITIALIZER;     // 互斥锁
 
 int main(int ac, char *av[])
 {
@@ -143,7 +143,7 @@ void *animate(void *arg)
 		usleep(info->delay*TUNIT);
 
         // 所有的线程都共用一把锁，mx 。所以只有拥有锁的线程可以使用。好像这里加锁并不能保护info->str，因为其它地方
-        // 可能摸个时刻正在修改info->str，这里是为了保护什么呢?另外，col是每个线程私有的吗?
+        // 可能某个时刻正在修改info->str(renbin.guo added 2017/07/06 其它地方没有能修改它的，它是线程私有)这里是为了保护什么呢?另外，col是每个线程私有的吗，是的。
 		pthread_mutex_lock(&mx);	/* only one thread	*/
 		   move( info->row, col );	/* can call curses	*/
 		   addch(' ');			/* at a the same time	*/
