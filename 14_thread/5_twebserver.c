@@ -11,7 +11,8 @@
 *   brief : 用线程来实现第12章中的web服务器。
             1. 之前是每一个客户请求都开一个进程，现在开一个线程。
             2. 另外，这个版本中没有实现之前的执行cgi可执行文件的功能，因为暂时还没有学习如何在线程中
-            装载一个新的可执行程序映像?            3.自己写了一个ls函数代替系统的ls
+            装载一个新的可执行程序映像?           
+            3.自己写了一个ls函数代替系统的ls
             4. 添加一个功能:内部统计。当客户请求
                URL:status时候，服务器将内部的统计
                数据发给客户
@@ -23,7 +24,7 @@
                pthread_create传递一个特殊的参数来实现创建
                不需要返回的线程(独立线程)它执行完了之后，自动释放资源。
     note :
-            better:统计的功能使用的是共享变量的机制，但是没有加锁。互斥访问
+            better:统计的功能使用的是全局变量的机制，但是没有加锁。互斥访问
 *
 */
 #include <stdio.h>
@@ -133,7 +134,7 @@ process_rq( char *rq, int fd)
 	if ( sscanf(rq, "%s%s", cmd, arg) != 2 )
 		return;
 	sanitize(arg);
-	printf("sanitized version is %s\n", arg);
+	printf("sanitized version is %s\n", arg);       // sanitized version is test.html
 
 	if ( strcmp(cmd,"GET") != 0 )
 		not_implemented();
