@@ -108,6 +108,9 @@ read_til_crnl(FILE *fp)
    do what the request asks for and write reply to fd 
    handles request in a new process
    rq is HTTP command:  GET /foo/bar.html HTTP/1.0
+
+
+   fd:   注意这里的fd是fd = accept( sock, NULL, NULL ); 向这个fd写数据，就相当于给客户端发数据
    ------------------------------------------------------ */
 
 process_rq( char *rq, int fd )
@@ -134,7 +137,7 @@ process_rq( char *rq, int fd )
 	// 如果arg 请求的是以cgi结尾的文件,则是可执行的文件,执行
 	else if ( ends_in_cgi( arg ) )
 		do_exec( arg, fd );
-	// 其它情况, 输出该文件的内容
+	// 其它情况, 输出该文件的内容  yes we are !
 	else
 		do_cat( arg, fd );
 }
@@ -142,6 +145,10 @@ process_rq( char *rq, int fd )
 /* ------------------------------------------------------ *
    the reply header thing: all functions need one
    if content_type is NULL then don't send content type
+
+   breif    : renbin.guo added 2017-07-06 向客户端输出:
+                    HTTP/1.0 200 OK\r\n
+                    Content-type: text/html
    ------------------------------------------------------ */
 
 header( FILE *fp, char *content_type )
@@ -270,12 +277,15 @@ do_cat(char *f, int fd)
 	else if ( strcmp(extension, "jpeg") == 0 )
 		content = "image/jpeg";
 
+    // renbin.guo added 2017/07/06 这里的fd是创建socket返回的fd。用于与客户端通信
 	fpsock = fdopen(fd, "w");
 	fpfile = fopen( f , "r");
 	if ( fpsock != NULL && fpfile != NULL )
 	{
 		header( fpsock, content );
-		fprintf(fpsock, "\r\n");
+		fprintf(fpsock, "\r\n");    // 向客户端输出  \r\n 
+
+		/* 打印test.html文件中的内容*/
 		while( (c = getc(fpfile) ) != EOF )
 			putc(c, fpsock);
 		fclose(fpfile);
