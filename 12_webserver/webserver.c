@@ -47,7 +47,7 @@
 	note:
 		bug ?  本机的IP是. 172.21.1.81  它是一个内网地址，所以无法用外部的浏览器通过 http://xxx:12345来打开,用本地的浏览器是否可以呢?
 
-*
+*        关于架构，每次来一个请求，就开一个子进程去处理。而父进程继续监听。
 *
 *
 ************************************************************/
@@ -118,6 +118,7 @@ process_rq( char *rq, int fd )
 	char	cmd[BUFSIZ], arg[BUFSIZ];
 
 	/* create a new process and return if not the child */
+	// 每次有请求，我们就开一个子进程来处理，而父进程返回，继续监听。
 	if ( fork() != 0 )
 		return;
 	//  rq 这里是 GET test.html HTTP/1.0 ，所以 cmd = GET ，arg=./test.html
