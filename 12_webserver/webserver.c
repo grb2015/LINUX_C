@@ -30,7 +30,7 @@
 	Trying 127.0.1.1...
 	Connected to xxx.
 	Escape character is '^]'.
-	GET test.html HTTP/1.0
+	GET test.html HTTP/1.0           //注意:这里需要敲2个回车，也就是要有一个空行!!!!
 
 	HTTP/1.0 200 OK
 	Content-type: text/html			// 注意,text/html是放在与12_webserver.c一个目录下
