@@ -9,6 +9,9 @@
             这个版本中，主线程用于处理键盘的输入，moving_msg用于处理球的移动
             主线程通过全局变量delay和dir来与moving_msg线程进行通信。从而影响moving_msg的移动速度和方向
     histroy : 2017-05-12 renbin.guo created
+
+    note    : 这个实例中就没有定时器来发消息，而是通过睡眠的长短，
+              主线程通过改变全局变量delay和dir的值来控制速度和方向。
 *
 *
 **********************************************************/
@@ -68,6 +71,8 @@ main()
 void *moving_msg(char *msg)
 {
 	while( 1 ) {
+	    // renbin.guo added 2017/07/06 这个实例中就没有定时器来发消息，而是通过睡眠的长短
+	    // 主线程通过改变全局变量delay和dir的值来控制速度和方向。
 		usleep(delay*1000);	/* sleep a while 	*/
 		move( row, col );	/* set cursor position	*/
 		addstr( msg );		/* redo message		*/
