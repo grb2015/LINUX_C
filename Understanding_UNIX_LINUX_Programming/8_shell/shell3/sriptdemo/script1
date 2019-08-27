@@ -1,0 +1,10 @@
+# shell 脚本 script0
+# 一些命令的集合
+# usage:	chmod 777  script0 
+# 		./script0
+
+ls 
+echo the current date is
+date
+echo my name is 
+whoami
